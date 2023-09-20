@@ -205,21 +205,26 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready(function () {
-            // Manejar la apertura del modal al hacer clic en el botón "Nuevo Empleado"
-            $('#nuevoEmpleadoModal').on('shown.bs.modal', function () {
-                // Enfoca el primer campo del formulario al abrir el modal
-                $('#first_name').focus();
-            });
+        <script>
+    $(document).ready(function () {
+        // Manejar la apertura del modal al hacer clic en el botón "Nuevo Empleado"
+        $('#nuevoEmpleadoModal').on('shown.bs.modal', function () {
+            // Enfoca el primer campo del formulario al abrir el modal
+            $('#first_name').focus();
+        });
 
-            // Manejar el envío del formulario del modal
-            $('#guardarEmpleado').click(function () {
-                // Obtener los datos del formulario
-                var formData = $('#nuevoEmpleadoForm').serialize();
+        // Manejar el envío del formulario del modal
+        $('#guardarEmpleado').click(function () {
+            // Obtener los datos del formulario
+            var formData = $('#nuevoEmpleadoForm').serialize();
 
-                // Enviar los datos al servidor (puedes usar AJAX aquí)
-                $.post('controlador/registro_persona.php', formData, function (response) {
+            // Enviar los datos al servidor utilizando AJAX
+            $.ajax({
+                type: 'POST',
+                url: 'controlador/registro_persona.php',
+                data: formData,
+                dataType: 'json', // Esperamos una respuesta en formato JSON
+                success: function (response) {
                     if (response.success) {
                         // Si la creación fue exitosa, mostrar un mensaje de éxito
                         alert('Éxito: ' + response.message);
@@ -227,14 +232,21 @@
                         // Cerrar el modal
                         $('#nuevoEmpleadoModal').modal('hide');
 
+                        // Aquí puedes realizar acciones adicionales, como actualizar la tabla de empleados si es necesario.
                     } else {
                         // Si hubo un error, muestra un mensaje de error
                         alert('Error: ' + response.message);
                     }
-                }, 'json');
+                },
+                error: function (error) {
+                    // Manejar errores si es necesario
+                    console.error('Error en la solicitud AJAX:', error);
+                }
             });
         });
-    </script>
+    });
+</script>
+
     <script>
         $(document).ready(function () {
             // ... otros scripts ...
