@@ -164,7 +164,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label">Género</label>
-                            <input type="text" class="form-control" id="gender" name="gender">
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="" disabled selected>Selecciona tu género</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="dept_no" class="form-label">Departamento</label>

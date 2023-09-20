@@ -15,23 +15,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $salary = $_POST['salary'];
 
-    // Query SQL para insertar un nuevo empleado
-    $sql = "INSERT INTO employees (first_name, last_name, birth_date, gender) 
-            VALUES (?, ?, ?, ?)";
+    // Query SQL para insertar un nuevo empleado en la tabla "employees"
+    $sql = "INSERT INTO employees (birth_date, first_name, last_name, gender, hire_date) 
+            VALUES (?, ?, ?, ?, NOW())";
 
     // Preparar la consulta
     if ($stmt = $conexion->prepare($sql)) {
         // Vincular los parámetros
-        $stmt->bind_param("ssss", $first_name, $last_name, $birth_date, $gender);
+        $stmt->bind_param("ssss", $birth_date, $first_name, $last_name, $gender);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Obtener el ID del empleado recién insertado
-            $employee_id = $stmt->insert_id;
+            $employee_id = $conexion->insert_id;
 
             // Insertar también en la tabla de salarios (supongo que hay una relación entre employees y salaries)
             $sql_salaries = "INSERT INTO salaries (emp_no, salary, from_date, to_date) 
-                             VALUES (?, ?, NOW(), NOW())";
+                             VALUES (?, ?, NOW(), '9999-01-01')";
 
             if ($stmt_salaries = $conexion->prepare($sql_salaries)) {
                 // Vincular los parámetros para la tabla de salarios
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Insertar el cargo en la tabla de títulos (supongo que hay una relación entre employees y titles)
             $sql_titles = "INSERT INTO titles (emp_no, title, from_date, to_date) 
-                           VALUES (?, ?, NOW(), NOW())";
+                           VALUES (?, ?, NOW(), '9999-01-01')";
 
             if ($stmt_titles = $conexion->prepare($sql_titles)) {
                 // Vincular los parámetros para la tabla de títulos
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Finalmente, insertar en la tabla dept_emp (supongo que hay una relación entre employees y dept_emp)
             $sql_dept_emp = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) 
-                             VALUES (?, ?, NOW(), NOW())";
+                             VALUES (?, ?, NOW(), '9999-01-01')";
 
             if ($stmt_dept_emp = $conexion->prepare($sql_dept_emp)) {
                 // Vincular los parámetros para la tabla dept_emp
