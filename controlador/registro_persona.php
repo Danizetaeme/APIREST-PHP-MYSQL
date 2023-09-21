@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $response['success'] = false;
                 $response['message'] = "Error al registrar el empleado: " . $stmt->error;
             }
-                            
+                        
             // Cerrar las consultas
             $stmt->close();
             if (isset($stmt_salaries))
