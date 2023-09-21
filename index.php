@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crud en PHP y MySQL</title>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public\css\index.css">
+    <!-- Bootstrap CSS y JavaScript (utilizando CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <!-- Fuente de Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,500">
-    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css"
-        integrity="sha384-xjhO1C0tj1uq0J5KA04i8FVzpGB6Fj4gYpDlHTtqSpM6SZFiwe5w5R92bJagD5Jkh" crossorigin="anonymous">
+    <!-- Iconos Font Awesome -->
+    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css" integrity="sha384-xjhO1C0tj1uq0J5KA04i8FVzpGB6Fj4gYpDlHTtqSpM6SZFiwe5w5R92bJagD5Jkh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/6a8b5ae6b1.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <header class="bg-dark text-light text-center py-3">
         <h1 class="display-4">Lista de Empleados</h1>
@@ -23,8 +25,7 @@
     <div class="container-fluid row">
         <!-- LISTADO DE EMPLEADOS -->
         <div class="col-12 p-4 text-center">
-            <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal"
-                data-bs-target="#nuevoEmpleadoModal">
+            <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#nuevoEmpleadoModal">
                 Nuevo Empleado
             </button>
             <table class="table custom-table mx-auto">
@@ -41,8 +42,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
-
                     <!-- RECORRIDO DE DATOS A LA BBDD -->
                     <?php
                     include "modelo/conexion.php";
@@ -69,37 +68,20 @@
 
                     while ($datos = $sql->fetch_object()) { ?>
                         <tr>
-                            <td>
-                                <?= $datos->emp_no ?>
-                            </td>
-                            <td>
-                                <?= $datos->first_name ?>
-                            </td>
-                            <td>
-                                <?= $datos->last_name ?>
-                            </td>
-                            <td>
-                                <?= $datos->dept_name ?>
-                            </td> <!-- departamento -->
-                            <td>
-                                <?= $datos->title ?>
-                            </td> <!-- cargo -->
-                            <td>
-                                <?= $datos->salary ?>
-                            </td> <!-- salario -->
-                            <td>
-                                <?= $datos->hire_date ?>
-                            </td> <!-- fecha contratación -->
+                            <td><?= $datos->emp_no ?></td>
+                            <td><?= $datos->first_name ?></td>
+                            <td><?= $datos->last_name ?></td>
+                            <td><?= $datos->dept_name ?></td>
+                            <td><?= $datos->title ?></td>
+                            <td><?= $datos->salary ?></td>
+                            <td><?= $datos->hire_date ?></td>
                             <td>
                                 <a href="" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                <a href="./ver_perfil.php?emp_no=<?= $datos->emp_no ?>" class="btn btn-small btn-primary"><i
-                                        class="fa-solid fa-eye"></i></i> Ver Perfil</a>
+                                <a href="./ver_perfil.php?emp_no=<?= $datos->emp_no ?>" class="btn btn-small btn-primary"><i class="fa-solid fa-eye"></i> Ver Perfil</a>
                             </td>
                         </tr>
-                    <?php }
-                    ?>
-
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -140,11 +122,8 @@
         </div>
     </div>
 
-
-
     <!-- Modal para Nuevo Empleado -->
-    <div class="modal fade" id="nuevoEmpleadoModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="nuevoEmpleadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,7 +168,6 @@
                                 <option value="d007">Sales</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="title" class="form-label">Cargo</label>
                             <input type="text" class="form-control" id="title" name="title">
@@ -204,14 +182,10 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="guardarEmpleado">Guardar</button>
                 </div>
-
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <!-- Tu archivo JavaScript personalizado -->
     <script src="js/formulario_registro.js"></script>
 </body>
-
 </html>

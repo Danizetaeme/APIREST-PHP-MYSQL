@@ -9,6 +9,7 @@ Este proyecto consiste en un tablón de empleados que permite ver los perfiles d
 ## Tecnologías Utilizadas
 
 - **PHP**: Utilicé PHP para desarrollar la lógica del servidor y crear la API REST.
+- **JavaScript**: Además, he utilizado levemente JavaScript para gestionar el envío del formulario de registro, mejorando la interacción del usuario con la aplicación.
 - **MySQL**: La base de datos que utilicé se llama 'employees' y es de tipo MySQL, donde almaceno la información de los empleados en diferentes tablas.
 - **Bootstrap**: Para el diseño de la interfaz, aproveché las capacidades de Bootstrap para hacer que la aplicación sea atractiva y ahorrar tiempo a la hora de maquetar y diseñar una interfaz básica.
 

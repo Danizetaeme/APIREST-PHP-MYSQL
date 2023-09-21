@@ -5,6 +5,7 @@ include_once '../modelo/conexion.php';
 // Inicializo un arreglo para la respuesta JSON
 $response = array();
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibo datos del formulario y realizar una validación básica
     $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
