@@ -17,7 +17,9 @@ Este proyecto consiste en un tablón de empleados que permite ver los perfiles d
 
 A lo largo del desarrollo de este proyecto, me encontré con algunos desafíos. Uno de los problemas más notables está relacionado con la solicitud AJAX para la creación de empleados. Por alguna razón, no está funcionando como esperaba, y estoy trabajando activamente en resolver este problema.
 
-También he tenido que investigar en cuanto cómo trabajar y lanzar el servidor Apache y MySQL desde XAMPP, pues nunca había trabajado con ello. Esto ha supuesto un aprendizaje en ello que me anima a seguir adaptandome a nuevos desafios.
+Otro desafío con el que me he enfrentado es el tener que relacionar tablas dentro de una misma bbdd relacional. Lo he solucionado a raiz de buscar soluciones a través de documentación y búsqueda en foros y tutoriales.
+
+También he tenido la oportunidad de aprender cómo configurar y ejecutar un servidor Apache y MySQL desde XAMPP, lo cual fue un nuevo desafío para mí, ya que no tenía experiencia previa en este tipo de servidores. Este proceso de aprendizaje me ha motivado aún más a adaptarme a nuevos desafíos y a ampliar mi conjunto de habilidades.
 
 ## Enlace al Proyecto
 
