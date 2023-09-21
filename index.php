@@ -41,6 +41,8 @@
                     </tr>
                 </thead>
                 <tbody>
+
+
                     <!-- RECORRIDO DE DATOS A LA BBDD -->
                     <?php
                     include "modelo/conexion.php";
@@ -101,7 +103,7 @@
                 </tbody>
             </table>
 
-            <!-- Agregar la paginación de Bootstrap con botón para siguiente página -->
+            <!-- paginación de Bootstrap con botón para siguiente página -->
             <nav>
                 <ul class="pagination justify-content-center">
                     <?php
@@ -137,6 +139,8 @@
             </nav>
         </div>
     </div>
+
+
 
     <!-- Modal para Nuevo Empleado -->
     <div class="modal fade" id="nuevoEmpleadoModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -209,74 +213,84 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-        <script>
-    $(document).ready(function () {
-        // Manejar la apertura del modal al hacer clic en el botón "Nuevo Empleado"
-        $('#nuevoEmpleadoModal').on('shown.bs.modal', function () {
-            // Enfoca el primer campo del formulario al abrir el modal
-            $('#first_name').focus();
-        });
 
-        // Manejar el envío del formulario del modal
-        $('#guardarEmpleado').click(function () {
-            // Obtener los datos del formulario
-            var formData = $('#nuevoEmpleadoForm').serialize();
-
-            // Enviar los datos al servidor utilizando AJAX
-            $.ajax({
-                type: 'POST',
-                url: 'controlador/registro_persona.php',
-                data: formData,
-                dataType: 'json', // Esperamos una respuesta en formato JSON
-                success: function (response) {
-                    if (response.success) {
-                        // Si la creación fue exitosa, mostrar un mensaje de éxito
-                        alert('Éxito: ' + response.message);
-
-                        // Cerrar el modal
-                        $('#nuevoEmpleadoModal').modal('hide');
-
-                        // Aquí puedes realizar acciones adicionales, como actualizar la tabla de empleados si es necesario.
-                    } else {
-                        // Si hubo un error, muestra un mensaje de error
-                        alert('Error: ' + response.message);
-                    }
-                },
-                error: function (error) {
-                    // Manejar errores si es necesario
-                    console.error('Error en la solicitud AJAX:', error);
-                }
-            });
-        });
-    });
-</script>
 
     <script>
         $(document).ready(function () {
-            // ... otros scripts ...
-
             // Manejar el envío del formulario del modal
             $('#guardarEmpleado').click(function () {
                 // Obtener los datos del formulario
                 var formData = $('#nuevoEmpleadoForm').serialize();
 
-                // Enviar los datos al servidor (puedes usar AJAX aquí)
+                // Enviar los datos al servidor utilizando AJAX
                 $.ajax({
                     type: 'POST',
-                    url: 'controlador/registro_persona.php', // Ruta al controlador de registro
+                    url: 'controlador/registro_persona.php',
                     data: formData,
+                    dataType: 'json', // Respuesta en formato JSON
                     success: function (response) {
-                        // Si el registro fue exitoso, puedes actualizar la interfaz aquí
-                        // Por ejemplo, agregar una nueva fila a la tabla con los datos del nuevo empleado
-                        // Asegúrate de que el controlador de registro devuelva los datos del nuevo empleado
-                        // en formato JSON para que puedas procesarlos aquí.
+                        if (response.success) {
+                            // Si la creación fue exitosa, muestro un mensaje de éxito
+                            alert('Éxito: ' + response.message);
 
-                        // Luego, cierra el modal
-                        $('#nuevoEmpleadoModal').modal('hide');
+                            // Cerrar el modal
+                            $('#nuevoEmpleadoModal').modal('hide');
+
+                            // Realizar acciones adicionales si es necesario
+
+                        } else {
+                            // Si hubo un error, muestra un mensaje de error
+                            alert('Error: ' + response.message);
+                        }
                     },
-                    error: function (error) {
-                        // Manejar errores si es necesario
-                        console.error('Error en la solicitud AJAX:', error);
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Mostrar el error específico en la consola
+                        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+
+                        // Mostrar errores en una alerta con detalles específicos
+                        alert('Error en la solicitud AJAX:\n' + textStatus + '\n' + errorThrown);
+
+                        // Aquí puedes realizar otras acciones de manejo de errores si es necesario.
+                    }
+
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Manejar el envío del formulario del modal
+            $('#guardarEmpleado').click(function () {
+                // Obtener los datos del formulario
+                var formData = $('#nuevoEmpleadoForm').serialize();
+
+                // Enviar los datos al servidor utilizando AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: 'controlador/registro_persona.php',
+                    data: formData,
+                    dataType: 'json', // Respuesta en formato JSON
+                    success: function (response) {
+                        if (response.success) {
+                            // Si la creación fue exitosa, hago que se muestre un mensaje de éxito
+                            alert('Éxito: ' + response.message);
+
+                            // Cerrar el modal
+                            $('#nuevoEmpleadoModal').modal('hide');
+
+
+                        } else {
+                            // Si hubo un error, muestra un mensaje de error
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Manejar errores de AJAX
+                        console.error('Error en la solicitud AJAX:', errorThrown);
+
+                        // Aquí puedes mostrar un mensaje de error al usuario o realizar otras acciones de manejo de errores.
                     }
                 });
             });
