@@ -46,7 +46,7 @@
                     <!-- RECORRIDO DE DATOS A LA BBDD -->
                     <?php
                     include "modelo/conexion.php";
-
+                   
                     // Paginación
                     $registros_por_pagina = 50;
                     if (isset($_GET['pagina'])) {

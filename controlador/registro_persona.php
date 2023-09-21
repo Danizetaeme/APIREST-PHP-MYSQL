@@ -2,15 +2,11 @@
 // Incluir el archivo de conexión a la base de datos
 include_once '../modelo/conexion.php';
 
-// Enviar la respuesta JSON
-header('Content-Type: application/json');
-echo json_encode($response);
-
-// Inicializar un arreglo para la respuesta JSON
+// Inicializo un arreglo para la respuesta JSON
 $response = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir datos del formulario y realizar una validación básica
+    // Recibo datos del formulario y realizar una validación básica
     $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
     $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
     $birth_date = isset($_POST['birth_date']) ? $_POST['birth_date'] : '';
@@ -27,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO employees (birth_date, first_name, last_name, gender, hire_date) 
                 VALUES (?, ?, ?, ?, NOW())";
 
-        // Preparar la consulta
+        
         if ($stmt = $conexion->prepare($sql)) {
             // Vincular los parámetros
             $stmt->bind_param("ssss", $birth_date, $first_name, $last_name, $gender);
@@ -35,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Ejecutar la consulta
             if ($stmt->execute()) {
                 // Obtener el ID del empleado recién insertado
-                $employee_id = $conexion->insert_id;
+                $employee_id = $stmt->insert_id;
 
                 // Insertar también en la tabla de salarios
                 $sql_salaries = "INSERT INTO salaries (emp_no, salary, from_date, to_date) 
@@ -85,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!isset($response['success'])) {
                     $response['success'] = true;
                     $response['message'] = "Empleado registrado correctamente.";
+                    $response['emp_no'] = $employee_id; // Incluir el ID del empleado en la respuesta
                 }
             } else {
                 $response['success'] = false;
@@ -109,8 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response['message'] = "Solicitud no válida";
 }
 
+// Enviar la respuesta JSON
+header('Content-Type: application/json');
+echo json_encode($response);
+
 // Cerrar la conexión a la base de datos
 $conexion->close();
-
-
 ?>
